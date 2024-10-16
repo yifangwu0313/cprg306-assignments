@@ -16,6 +16,17 @@ export default function ItemList(){
         }
         return 0;
     });
+    function handleGroup() {
+      const groupedItems = [...shoppingItems].reduce((acc, item) => {
+        if (!acc[item.category]) {
+          acc[item.category] = [];
+        }
+        acc[item.category].push(item);
+        return acc;
+      }, []);
+      setShoppingItems(groupedItems);
+      console.log(groupedItems);
+    }
 
     return(
         <main>
@@ -28,10 +39,15 @@ export default function ItemList(){
             <button
             onClick={()=> setSortBy("category")}
             className={`py-2 px-4 bg-blue-400 border-b-1 font-bold ml-4 hover:bg-blue-900 ${sortBy === "category" ? "bg-blue-950 text-gray-500" : "bg-gray-300 text-white"}`}>Category</button>
+             <button onClick={handleGroup}>Grouped Category</button>
        </div> 
        <div>
-              {itemJSON.map((item, index) => {
-                return <Item key={index} name={item.name} quantity={item.quantity} category={item.category} />
+              {itemJSON.map((item) => {
+                return <Item key={item.name}
+                 name={item.name}
+                quantity={item.quantity} 
+                category={item.category} 
+                />
               })}
        </div>
        </main>
