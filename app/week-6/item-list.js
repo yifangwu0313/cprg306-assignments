@@ -8,23 +8,23 @@ export default function ItemList(){
     let itemJSON = [...items]; 
     const [sortBy, setSortBy] = useState("name");
     itemJSON.sort((a, b) => {
-        if (sortBy === "name") {
-            return a.name.localeCompare(b.name);
-        }
-        else if (sortBy === "category") {
-            return a.category.localeCompare(b.category);
-        }
-        return 0;
-    });
+      if (sortBy === "name") {
+          return a.name.localeCompare(b.name);
+      }
+      else if (sortBy === "category") {
+          return a.category.localeCompare(b.category);
+      }
+      return 0;
+  });
+
     function handleGroup() {
-      const groupedItems = [...shoppingItems].reduce((acc, item) => {
-        if (!acc[item.category]) {
-          acc[item.category] = [];
+      const groupedItems = [...items].reduce((acc, item) => {
+        if (!acc[items.category]) {
+          acc[items.category] = [];
         }
-        acc[item.category].push(item);
+        acc[items.category].push(item);
         return acc;
       }, []);
-      setShoppingItems(groupedItems);
       console.log(groupedItems);
     }
 
@@ -35,11 +35,13 @@ export default function ItemList(){
             <h1>Sort by:</h1>
             <button
             onClick={() => setSortBy("name")}
-            className={`py-2 px-4 bg-blue-400 border-b-1 font-bold ml-2 hover:bg-blue-900 ${sortBy === "name" ? "bg-blue-950 text-gray-500" : "bg-gray-300 text-white"}`}>Name</button>
+            className={`py-2 px-4 bg-blue-400 border-b-1 font-bold ml-2 hover:bg-blue-900 ${sortBy === "name" ? "bg-blue-600 text-black-500" : "bg-gray-300 text-black"}`}>Name</button>
             <button
             onClick={()=> setSortBy("category")}
-            className={`py-2 px-4 bg-blue-400 border-b-1 font-bold ml-4 hover:bg-blue-900 ${sortBy === "category" ? "bg-blue-950 text-gray-500" : "bg-gray-300 text-white"}`}>Category</button>
-             <button onClick={handleGroup}>Grouped Category</button>
+            className={`py-4 px-6 bg-blue-400 border-b-1 font-bold ml-4 hover:bg-blue-900 ${sortBy === "category" ? "bg-blue-600 text-black-500" : "bg-gray-300 text-black"}`}>Category</button>
+           
+              <button onClick={handleGroup} className={`py-2 px-4 bg-blue-400 border-b-1 font-bold ml-4 hover:bg-blue-900 ${sortBy === "category" ? "bg-blue-600 text-black-500" : "bg-gray-300 text-black"}`}>Grouped Category</button>
+            
        </div> 
        <div>
               {itemJSON.map((item) => {
