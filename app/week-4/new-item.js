@@ -1,30 +1,41 @@
 "use client";
-import {useState} from "react";
-import Button from "./button";
-
-
+import { useState } from "react";
 
 export default function NewItems() {
-  const [quatity, setQuantity] = useState(1);
-  const isDisabledDec = quatity === 1? true : false;
-  const isDisabledInc = quatity === 20? true : false;  
-function increment() {
-  setQuantity(quatity + 1);
-};
-function decrement() {
-  setQuantity(quatity - 1);
-};
+  const [quantity, setQuantity] = useState(1);
+
+  function increment() {
+    if (quantity < 20) {
+      setQuantity(quantity + 1);
+    }
+  }
+
+  function decrement() {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  }
+
   return (
-    <main >
-      
-      <h1 className="text-[28px] font-bold ml-5 mt-5"></h1>
-      <div className="flex justify-center items-center">
-        <Button onClick={decrement} disabled={isDisabledDec}>-</Button>
-        <p className="text-[28px] font-bold w-20 text-center">{quatity}</p>
-        <Button onClick={increment} disabled={isDisabledInc}>+</Button>
+    <main className="flex justify-center items-center bg-gray-700 min-h-screen">
+      <div className="text-center">
+        <h1 className="text-3xl font-bold w-20">{quantity}</h1>
+        <button
+          onClick={decrement}
+          disabled={quantity === 1}
+          className="bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 px-4 py-2 mx-1 focus:outline-none focus:ring-2 disabled:bg-gray-400 focus:ring-blue-400 focus:ring-opacity-75"
+        >
+          -
+        </button>
+
+        <button
+          onClick={increment}
+          disabled={quantity === 20}
+          className="bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 px-4 py-2 mx-1 focus:outline-none focus:ring-2 disabled:bg-gray-400 focus:ring-blue-400 focus:ring-opacity-75"
+        >
+          +
+        </button>
       </div>
-      
-      
     </main>
   );
-};
+}
